@@ -15,3 +15,6 @@ pip install SpeechRecognition
 ```
 
 It takes a list of inputs and if the word "Lampi" or "listen" is detected, it exists the program. 
+
+This is a good source as an instruction on text to speech library:
+https://realpython.com/python-speech-recognition/
