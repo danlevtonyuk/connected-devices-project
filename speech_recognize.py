@@ -4,7 +4,8 @@ r = sr.Recognizer()
 
 list_text = ['a lumpy','hey Lumpy', 'lamp', 'Halen', 'Hayden', 'listen', 'Listen', 'Lampe', 'lampe']
 
-while(True):
+stop_flag = True
+while(stop_flag):
     with sr.Microphone() as source:
         # read the audio data from the default microphone
         print(" - Please speak for 5 seconds...")
@@ -14,12 +15,12 @@ while(True):
         #text = r.recognize_google(audio_data)
         try:
             text = r.recognize_google(audio_data, language="en-EN")
-            print(text)
+            #print(text)
             for i in range(0,len(list_text)):
                 #print(list_text[i])
                 if text in list_text[i]:
                     print("    - LAMPI detected")
-                    break
+                    stop_flag = False
         except:
             print("    - no word recognized!")
 
