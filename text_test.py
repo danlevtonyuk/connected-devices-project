@@ -1,4 +1,6 @@
 import colorsys
+import json
+
 
 text_1 =  "set brightness and Saturation to 20% and hue to 30%"
 

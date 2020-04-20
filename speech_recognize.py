@@ -9,8 +9,8 @@ class LampiSpeech(object):
         self.hue = 1.0
         self.brightness = 1.0
         self.saturation = 1.0
-        self._on_off = True
-
+        self.on_off = True
+        
         # get values from mqtt
         
 
@@ -20,6 +20,13 @@ class LampiSpeech(object):
         stop_flag = True
         duration = 3
         while(stop_flag):
+            config = {'color': {'hue':self.hue, 'saturation':self.saturation},
+                  'brightness': self.brightness,
+                  'on': self.on_off,
+                  'client': 'local'}
+        
+            print("    - mqtt saved:",config)
+
             with sr.Microphone() as source:
             #with sr.Microphone(device_index=6) as source:
                 # read the audio data from the default microphone
@@ -56,12 +63,16 @@ class LampiSpeech(object):
             # convert speech to text
             #text = r.recognize_google(audio_data)
             text = None
+            
+            #text = r.recognize_google(audio_data, language="en-EN")
+            #self.lampiGrammar(text)
             try:
                 text = r.recognize_google(audio_data, language="en-EN")
                 self.lampiGrammar(text)
                 #print("    - heard: ",text)
             except:
                 print("    - no command recognized!")
+            
 
 
     def lampiGrammar(self,text):
@@ -70,17 +81,48 @@ class LampiSpeech(object):
         #print(text)
         
         if "set" or "Set" in str(text):
-        #if str(text) contains "set":
-            #print("set grammar")
             self.setGrammar(text)
-    
+        if "turn" or "Turn" in str(text):
+            self.turnGrammar(text)
+        
+        self.publish_config_change()
+
+    def turnGrammar (self,text):
+        print("    - turn grammar")
+        command = str(text)
+        command = command.split(" ")
+        #print(command)
+        turn_list = ["on", "off"]
+
+        turn_flag = False
+                
+        for word in command:
+            #print(word)
+            if "turn"==word or "Turn"==word:
+                print("set flag true")
+                turn_flag = True
+            if turn_flag:
+                if word.lower() in turn_list:
+                    if  word.lower() == "on":
+                        print("Turn on")
+                        self.on_off= True
+                        break
+                    if word.lower() == "off":
+                        print("Turn off")
+                        self.on_off= False
+                        break
+        
+
+
     def setGrammar (self,text):
-        #print("set grammar")
+        print("    - set grammar")
 
         set_list = ["hue", "saturation", "brightness"]
         color_list = ["red","green","blue","yellow"]
 
         Dict = dict({"hue": None, "saturation": None, "brightness": None, "color":None}) 
+
+        #mqtt_dict = dict({"hue": None, "saturation": None, "brightness": None}) 
 
         command = str(text)
         command = command.split(" ")
@@ -135,22 +177,21 @@ class LampiSpeech(object):
             if Dict["color"] == "red":
                 #print(colorsys.rgb_to_hsv(int(255*float(Dict["brightness"])), 0, 0))
                 (hue, saturation,value) = colorsys.rgb_to_hsv(255, 0, 0)
-                brightness = Dict["brightness"]
             elif Dict["color"] == "green":
                 #print(colorsys.rgb_to_hsv(int(255*float(Dict["brightness"])), 0, 0))
                 (hue, saturation,value) = colorsys.rgb_to_hsv(0, 255, 0)
-                brightness = Dict["brightness"]
             elif Dict["color"] == "blue":
                 #print(colorsys.rgb_to_hsv(int(255*float(Dict["brightness"])), 0, 0))
                 (hue, saturation,value) = colorsys.rgb_to_hsv(0, 0, 255)
-                brightness = Dict["brightness"]
             elif Dict["color"] == "yellow":
                 #print(colorsys.rgb_to_hsv(int(255*float(Dict["brightness"])), 0, 0))
                 (hue, saturation,value) = colorsys.rgb_to_hsv(255, 255, 0)
-                brightness = Dict["brightness"]
 
             if color_flag_error == False:
-                print("    - Set:","hue:",hue,"saturation:",saturation,"brightness:",brightness)
+                Dict["hue"] = hue
+                Dict["saturation"] = saturation                
+                #print("    - Set:","hue:",hue,"saturation:",saturation,"brightness:",brightness)
+                #self.publish_config_change(Dict)
                 # write data
 
         elif Dict["hue"]!=None or Dict["saturation"]!=None :
@@ -158,12 +199,32 @@ class LampiSpeech(object):
             saturation = Dict["saturation"]
             brightness = Dict["brightness"]
         
-            print("    - Set:","hue:",hue,"saturation:",saturation,"brightness:",brightness)
+            #print("    - Set:","hue:",hue,"saturation:",saturation,"brightness:",brightness)
+            
+            #self.publish_config_change(Dict)
+        
+        if Dict["hue"]!=None:
+            self.hue = Dict["hue"]
+        if Dict["saturation"]!=None:
+            self.saturation = Dict["saturation"]
+        if Dict["brightness"]!=None:
+            self.brightness = Dict["brightness"]
 
         #self.write_mqtt(Dict)
     
-    #def write_mqtt (self,Dict):
+    def publish_config_change(self):
+
         
+        config = {'color': {'hue':self.hue, 'saturation':self.saturation},
+                  'brightness': self.brightness,
+                  'on': self.on_off,
+                  'client': 'local'}
+        
+        print("    - mqtt send :",config)
+
+            
+        
+    
 
 
 
