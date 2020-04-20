@@ -44,7 +44,7 @@ class LampiSpeech(object):
                     print(" - no word recognized!")
 
     def commandRoutine(self):
-        duration = 5
+        duration = 10
         r = sr.Recognizer()
         with sr.Microphone() as source:
         #with sr.Microphone(device_index=6) as source:
@@ -158,7 +158,7 @@ class LampiSpeech(object):
             saturation = Dict["saturation"]
             brightness = Dict["brightness"]
         
-            print(hue,saturation,brightness)
+            print("    - Set:","hue:",hue,"saturation:",saturation,"brightness:",brightness)
 
         #self.write_mqtt(Dict)
     
