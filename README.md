@@ -11,10 +11,16 @@ Speech to text module takes input voice from user (default computer mic) and ext
 It requires the following libraries to be installed:
 
 ```python
-pip install SpeechRecognition
+sudo pip install SpeechRecognition
+sudo apt-get install python-pyaudio python3-pyaudio
 ```
 
 It takes a list of inputs and if the word "Lampi" or "listen" is detected, it exists the program. 
 
 This is a good source as an instruction on text to speech library:
 https://realpython.com/python-speech-recognition/
+
+### How to use:
+It takes an input voice for 5 seconds which should include either lampi or listem or both.
+
+Then it listens for 10 to 15 seconds (you can set in the code) and then generates a texts and makes proper mqtt command.
