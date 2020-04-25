@@ -1,5 +1,9 @@
 import speech_recognition as sr
 import colorsys
+import pygame, time
+from gtts import gTTS 
+import os 
+
 
 
 class LampiSpeech(object):
@@ -33,6 +37,7 @@ class LampiSpeech(object):
                 print(" - Call lampi (",duration, "seconds ) ...")
                 r.adjust_for_ambient_noise(source)
                 audio_data = r.record(source, duration=duration)
+                #print(type(audio_data))
                 #print(" - Recognizing...")
                 # convert speech to text
                 #text = r.recognize_google(audio_data)
@@ -44,6 +49,13 @@ class LampiSpeech(object):
                         #print(list_text[i])
                         if item in list_text:
                             print(" - LAMPI detected")
+                            
+                            pygame.init()
+                            pygame.mixer.music.load('this_is_lampi.mp3')
+                            pygame.mixer.music.play()
+                            time.sleep(3)
+                            pygame.mixer.music.fadeout(5)
+                            
                             #stop_flag = False
                             self.commandRoutine()
                             break
@@ -68,11 +80,88 @@ class LampiSpeech(object):
             #self.lampiGrammar(text)
             try:
                 text = r.recognize_google(audio_data, language="en-EN")
+                return_val = self.read_text(text)
                 self.lampiGrammar(text)
+                
+                '''
+                if return_val==1:
+                    self.lampiGrammar(text)
+                else:
+                '''
+
                 #print("    - heard: ",text)
             except:
+                pygame.init()
+                pygame.mixer.music.load('did_not_hear.mp3')
+                pygame.mixer.music.play()
+                time.sleep(5)
+                pygame.mixer.music.fadeout(5)
+
                 print("    - no command recognized!")
             
+    def read_text(self,text):
+        #print("read text")
+        #print(str(text))
+
+        language = 'en'
+        myobj = gTTS(text=str(text), lang=language, slow=False) 
+
+        myobj.save("read_command.mp3") 
+        pygame.init()
+
+        pygame.mixer.music.load('I_heard.mp3')
+        pygame.mixer.music.play()
+        time.sleep(1)
+
+        pygame.mixer.music.load('read_command.mp3')
+        pygame.mixer.music.play()
+        time.sleep(5)
+
+        pygame.mixer.music.load('is_this_correct.mp3')
+        pygame.mixer.music.play()
+        time.sleep(2)
+
+        pygame.mixer.music.fadeout(5)
+
+        reply_falg = True
+
+        duration = 2
+        r = sr.Recognizer()
+        while(reply_falg!=False):
+            with sr.Microphone() as source:
+            #with sr.Microphone(device_index=6) as source:
+                # read the audio data from the default microphone
+                print("    - Please speak for",duration, "seconds ...")
+                r.adjust_for_ambient_noise(source)
+                audio_data = r.record(source, duration=duration)
+                #print(" - Recognizing...")
+                # convert speech to text
+                #text = r.recognize_google(audio_data)
+                text = None
+                
+                #text = r.recognize_google(audio_data, language="en-EN")
+                #self.lampiGrammar(text)
+                try:
+                    text = r.recognize_google(audio_data, language="en-EN")
+                    text = text.split(" ")
+                    if "yes" in text or "Yes" in text:
+                        reply_falg = False
+                        return 1
+                    if "no" in text or "No" in text:
+                        reply_falg = False
+                        return 0
+                    #print("    - heard: ",text)
+                except:
+                    pygame.init()
+                    pygame.mixer.music.load('say_again.mp3')
+                    pygame.mixer.music.play()
+                    time.sleep(5)
+                    pygame.mixer.music.fadeout(4)
+
+                    print("    - no command recognized!")
+
+
+
 
 
     def lampiGrammar(self,text):

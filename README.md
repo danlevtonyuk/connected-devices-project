@@ -13,6 +13,9 @@ It requires the following libraries to be installed:
 ```python
 sudo pip install SpeechRecognition
 sudo apt-get install python-pyaudio python3-pyaudio
+pip install gTTS
+python3 -m pip install -U pygame --user
+
 ```
 
 It takes a list of inputs and if the word "Lampi" or "listen" is detected, it exists the program. 
