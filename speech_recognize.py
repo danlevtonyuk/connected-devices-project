@@ -1,43 +1,62 @@
+#!/usr/bin/python3
 import speech_recognition as sr
 import colorsys
 import pygame, time
 from gtts import gTTS 
 import os 
+import pyaudio
+from datetime import datetime
 
 
+def getaudiodevices():
+    p = pyaudio.PyAudio()
+    print("audio devices", p.get_device_count())
+    for i in range(p.get_device_count()):
+        name_i = p.get_device_info_by_index(i).get('name')
+        print("name_i:", name_i, name_i.find("PnP"))
+        print(p.get_device_info_by_index(i).get('name'))
+        if name_i.find("PnP") != -1:
+          return i
+    return None
 
 class LampiSpeech(object):
     def __init__(self):
-        #pass
-
         self.hue = 1.0
         self.brightness = 1.0
         self.saturation = 1.0
         self.on_off = True
-        
-        # get values from mqtt
-        
+        pyaudio.PyAudio()
 
     def listenRoutine(self):
         r = sr.Recognizer()
+        print("\r\n\r\n*****\r\nr", r)
         list_text = ['a lumpy','hey Lumpy', 'lamp', 'Halen', 'Hayden', 'listen', 'Listen', 'Lampe', 'lampe']
         stop_flag = True
-        duration = 3
+        duration = 5
         while(stop_flag):
             config = {'color': {'hue':self.hue, 'saturation':self.saturation},
                   'brightness': self.brightness,
                   'on': self.on_off,
                   'client': 'local'}
-        
+
             print("    - mqtt saved:",config)
 
-            with sr.Microphone() as source:
-            #with sr.Microphone(device_index=6) as source:
+            our_device = getaudiodevices()
+            print("Detected our mic:", our_device)
+            with sr.Microphone(device_index=our_device, sample_rate=48000) as source:
+                print("Microphone source:", source, source.__dict__.keys(), source.device_index)
+                #print("More data about microphone:", source.list_working_microphones())
+                #with sr.Microphone(device_index=6) as source:
                 # read the audio data from the default microphone
                 print(" - Call lampi (",duration, "seconds ) ...")
+                print("Set minimum energy threshold to {}".format(r.energy_threshold))
                 r.adjust_for_ambient_noise(source)
                 audio_data = r.record(source, duration=duration)
                 #print(type(audio_data))
+                filename = "pre_filtered_" + datetime.now().strftime("%H:%M:%S") + ".wav"
+                with open(filename, "wb") as audio_file:
+                    audio_file.write(audio_data.get_wav_data())
+                exit()
                 #print(" - Recognizing...")
                 # convert speech to text
                 #text = r.recognize_google(audio_data)
@@ -75,7 +94,7 @@ class LampiSpeech(object):
             # convert speech to text
             #text = r.recognize_google(audio_data)
             text = None
-            
+
             #text = r.recognize_google(audio_data, language="en-EN")
             #self.lampiGrammar(text)
             try:
@@ -278,7 +297,7 @@ class LampiSpeech(object):
 
             if color_flag_error == False:
                 Dict["hue"] = hue
-                Dict["saturation"] = saturation                
+                Dict["saturation"] = saturation
                 #print("    - Set:","hue:",hue,"saturation:",saturation,"brightness:",brightness)
                 #self.publish_config_change(Dict)
                 # write data
@@ -287,11 +306,7 @@ class LampiSpeech(object):
             hue = Dict["hue"]
             saturation = Dict["saturation"]
             brightness = Dict["brightness"]
-        
-            #print("    - Set:","hue:",hue,"saturation:",saturation,"brightness:",brightness)
-            
-            #self.publish_config_change(Dict)
-        
+
         if Dict["hue"]!=None:
             self.hue = Dict["hue"]
         if Dict["saturation"]!=None:
@@ -299,34 +314,18 @@ class LampiSpeech(object):
         if Dict["brightness"]!=None:
             self.brightness = Dict["brightness"]
 
-        #self.write_mqtt(Dict)
-    
     def publish_config_change(self):
-
-        
         config = {'color': {'hue':self.hue, 'saturation':self.saturation},
                   'brightness': self.brightness,
                   'on': self.on_off,
                   'client': 'local'}
-        
+
         print("    - mqtt send :",config)
-
-            
-        
-    
-
-
-
-        
-
 
 
 def main():
-
     lampi_speech = LampiSpeech()
     lampi_speech.listenRoutine()
-
-
 
 
 if __name__ == "__main__":
