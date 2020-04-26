@@ -1,11 +1,59 @@
 Lampi set hue to 0.1
+Lampi set hue to 0.2
+Lampi set hue to 0.3
+Lampi set hue to 0.4
+Lampi set hue to 0.5
+Lampi set hue to 0.6
+Lampi set hue to 0.7
+Lampi set hue to 0.8
+Lampi set hue to 0.9
 Lampi set hue to zero point one
+Lampi set hue to zero point two
+Lampi set hue to zero point three
+Lampi set hue to zero point four
+Lampi set hue to zero point five
+Lampi set hue to zero point six
+Lampi set hue to zero point seven
+Lampi set hue to zero point eight
+Lampi set hue to zero point nine
 
 Lampi set saturation to 0.1
+Lampi set saturation to 0.2
+Lampi set saturation to 0.3
+Lampi set saturation to 0.4
+Lampi set saturation to 0.5
+Lampi set saturation to 0.6
+Lampi set saturation to 0.7
+Lampi set saturation to 0.8
+Lampi set saturation to 0.9
 Lampi set saturation to zero point one
+Lampi set saturation to zero point two
+Lampi set saturation to zero point three
+Lampi set saturation to zero point four
+Lampi set saturation to zero point five
+Lampi set saturation to zero point six
+Lampi set saturation to zero point seven
+Lampi set saturation to zero point eight
+Lampi set saturation to zero point nine
 
 Lampi set brightness to 0.1
+Lampi set brightness to 0.2
+Lampi set brightness to 0.3
+Lampi set brightness to 0.4
+Lampi set brightness to 0.5
+Lampi set brightness to 0.6
+Lampi set brightness to 0.7
+Lampi set brightness to 0.8
+Lampi set brightness to 0.9
 Lampi set brightness to zero point one
+Lampi set brightness to zero point two
+Lampi set brightness to zero point three
+Lampi set brightness to zero point four
+Lampi set brightness to zero point five
+Lampi set brightness to zero point six
+Lampi set brightness to zero point seven
+Lampi set brightness to zero point eight
+Lampi set brightness to zero point nine
 
 Lampi set lamp off
 Lampi set the lamp off
@@ -18,17 +66,54 @@ Lampi set off
 Lampi toggle
 
 Lampi set color to red
-Lampi set color to blue
-Lampi set color to green
-Lampi set color to yellow
 Lampi set color to orange
+Lampi set color to yellow
+Lampi set color to green
+Lampi set color to blue
 Lampi set color to purple
-
+Lampi set color to magenta
+Lampi set color to tan
+Lampi set color to cyan
+Lampi set color to aquamarine
+Lampi set color to pink
+Lampi set color to white
 
 Lampi change hue to 0.1
+Lampi change hue to 0.2
+Lampi change hue to 0.3
+Lampi change hue to 0.4
+Lampi change hue to 0.5
+Lampi change hue to 0.6
+Lampi change hue to 0.7
+Lampi change hue to 0.8
+Lampi change hue to 0.9
 Lampi change the hue to 0.1
+Lampi change the hue to 0.2
+Lampi change the hue to 0.3
+Lampi change the hue to 0.4
+Lampi change the hue to 0.5
+Lampi change the hue to 0.6
+Lampi change the hue to 0.7
+Lampi change the hue to 0.8
+Lampi change the hue to 0.9
 Lampi change hue to zero point one
+Lampi change hue to zero point two
+Lampi change hue to zero point three
+Lampi change hue to zero point four
+Lampi change hue to zero point five
+Lampi change hue to zero point six
+Lampi change hue to zero point seven
+Lampi change hue to zero point eight
+Lampi change hue to zero point nine
 Lampi change the hue to zero point one
+Lampi change the hue to zero point two
+Lampi change the hue to zero point three
+Lampi change the hue to zero point four
+Lampi change the hue to zero point five
+Lampi change the hue to zero point six
+Lampi change the hue to zero point seven
+Lampi change the hue to zero point eight
+Lampi change the hue to zero point nine
 
 Lampi change saturation to 0.1
 Lampi change the saturation to 0.1
