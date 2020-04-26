@@ -1,0 +1,184 @@
+Lampi set hue to 0.1
+Lampi set hue to zero point one
+
+Lampi set saturation to 0.1
+Lampi set saturation to zero point one
+
+Lampi set brightness to 0.1
+Lampi set brightness to zero point one
+
+Lampi set lamp off
+Lampi set the lamp off
+Lampi set lamp on
+Lampi set the lamp on
+Lampi toggle the lamp
+Lampi toggle the power
+Lampi set on
+Lampi set off
+Lampi toggle
+
+Lampi set color to red
+Lampi set color to blue
+Lampi set color to green
+Lampi set color to yellow
+Lampi set color to orange
+Lampi set color to purple
+
+
+Lampi change hue to 0.1
+Lampi change the hue to 0.1
+Lampi change hue to zero point one
+Lampi change the hue to zero point one
+
+Lampi change saturation to 0.1
+Lampi change the saturation to 0.1
+Lampi change saturation to zero point one
+Lampi change the saturation to zero point one
+
+Lampi change brightness to 0.1
+Lampi change the brightness to 0.1
+Lampi change brightness to zero point one
+Lampi change the brightness to zero point one
+
+Lampi change the lamp to off
+Lampi change the lamp to on
+Lampi change the lamp off
+Lampi change the power off
+Lampi change the lamp on
+Lampi change the power on
+Lampi change to on
+Lampi change to off
+Lampi toggle
+
+Lampi change color to red
+Lampi change color to blue
+Lampi change color to green
+Lampi change color to yellow
+Lampi change color to orange
+Lampi change color to purple
+
+
+
+
+
+Lampi turn saturation to 0.1
+Lampi turn the saturation to 0.1
+Lampi turn saturation to zero point one
+Lampi turn the saturation to zero point one
+
+Lampi turn brightness to 0.1
+Lampi turn the brightness to 0.1
+Lampi turn brightness to zero point one
+Lampi turn the brightness to zero point one
+
+Lampi turn the lamp to off
+Lampi turn the lamp to on
+Lampi turn the lamp off
+Lampi turn the power off
+Lampi turn the lamp on
+Lampi turn the power on
+Lampi turn to on
+Lampi turn to off
+Lampi turn
+
+Lampi turn color to red
+Lampi turn color to blue
+Lampi turn color to green
+Lampi turn color to yellow
+Lampi turn color to orange
+Lampi turn color to purple
+
+
+
+
+Hey Lampi set hue to 0.1
+Hey Lampi set hue to zero point one
+
+Hey Lampi set saturation to 0.1
+Hey Lampi set saturation to zero point one
+
+Hey Lampi set brightness to 0.1
+Hey Lampi set brightness to zero point one
+
+Hey Lampi set lamp off
+Hey Lampi set the lamp off
+Hey Lampi set lamp on
+Hey Lampi set the lamp on
+Hey Lampi toggle the lamp
+Hey Lampi toggle the power
+Hey Lampi set on
+Hey Lampi set off
+Hey Lampi toggle
+
+Hey Lampi set color to red
+Hey Lampi set color to blue
+Hey Lampi set color to green
+Hey Lampi set color to yellow
+Hey Lampi set color to orange
+Hey Lampi set color to purple
+
+Hey Lampi change hue to 0.1
+Hey Lampi change the hue to 0.1
+Hey Lampi change hue to zero point one
+Hey Lampi change the hue to zero point one
+
+Hey Lampi change saturation to 0.1
+Hey Lampi change the saturation to 0.1
+Hey Lampi change saturation to zero point one
+Hey Lampi change the saturation to zero point one
+
+Hey Lampi change brightness to 0.1
+Hey Lampi change the brightness to 0.1
+Hey Lampi change brightness to zero point one
+Hey Lampi change the brightness to zero point one
+
+Hey Lampi change the lamp to off
+Hey Lampi change the lamp to on
+Hey Lampi change the lamp off
+Hey Lampi change the power off
+Hey Lampi change the lamp on
+Hey Lampi change the power on
+Hey Lampi change to on
+Hey Lampi change to off
+Hey Lampi toggle
+
+Hey Lampi change color to red
+Hey Lampi change color to blue
+Hey Lampi change color to green
+Hey Lampi change color to yellow
+Hey Lampi change color to orange
+Hey Lampi change color to purple
+
+Hey Lampi turn hue to 0.1
+Hey Lampi turn the hue to 0.1
+Hey Lampi turn hue to zero point one
+Hey Lampi turn the hue to zero point one
+
+Hey Lampi turn saturation to 0.1
+Hey Lampi turn the saturation to 0.1
+Hey Lampi turn saturation to zero point one
+Hey Lampi turn the saturation to zero point one
+
+Hey Lampi turn brightness to 0.1
+Hey Lampi turn the brightness to 0.1
+Hey Lampi turn brightness to zero point one
+Hey Lampi turn the brightness to zero point one
+
+Hey Lampi turn the lamp to off
+Hey Lampi turn the lamp to on
+Hey Lampi turn the lamp off
+Hey Lampi turn the power off
+Hey Lampi turn the lamp on
+Hey Lampi turn the power on
+Hey Lampi turn to on
+Hey Lampi turn to off
+Hey Lampi turn
+
+Hey Lampi turn color to red
+Hey Lampi turn color to blue
+Hey Lampi turn color to green
+Hey Lampi turn color to yellow
+Hey Lampi turn color to orange
+Hey Lampi turn color to purple
+
+

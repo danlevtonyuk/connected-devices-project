@@ -1,0 +1,44 @@
+    Lampi set     hue/saturation/brightness/color to NUMBER/COLOR
+    Lampi set the hue/saturation/brightness/color to NUMBER/COLOR
+Hey Lampi set     hue/saturation/brightness/color to NUMBER/COLOR
+Hey Lampi set the hue/saturation/brightness/color to NUMBER/COLOR
+
+    Lampi set                 on
+    Lampi set                 off
+    Lampi set
+    Lampi set        lamp     off
+    Lampi set    the lamp     off
+    Lampi set        lamp     on
+    Lampi set    the lamp     on
+    Lampi set    the lamp  to off
+    Lampi set    the lamp  to on
+    Lampi set    the power    off
+    Lampi set    the power    on
+    Lampi set              to on
+    Lampi set              to off
+    Lampi toggle
+    Lampi toggle the lamp
+    Lampi toggle the power
+Hey Lampi set
+Hey Lampi set        lamp     off
+Hey Lampi set    the lamp     off
+Hey Lampi set        lamp     on
+Hey Lampi set    the lamp     on
+Hey Lampi set                 on
+Hey Lampi set                 off
+Hey Lampi set    the lamp to  off
+Hey Lampi set    the lamp to  on
+Hey Lampi set    the power    off
+Hey Lampi set    the power    on
+Hey Lampi set             to  on
+Hey Lampi set             to  off
+Hey Lampi toggle the lamp
+Hey Lampi toggle the power
+Hey Lampi toggle
+
+
+Number:
+zero point one one
+zero point two two
+zero point three three
+one point

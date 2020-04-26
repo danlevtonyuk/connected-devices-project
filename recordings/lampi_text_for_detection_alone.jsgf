@@ -1,0 +1,35 @@
+#JSGF V1.0;
+/******************************
+Grammar generated automatically
+******************************/
+
+grammar hello;
+
+public <hello> = 
+ BLUE 
+| BRIGHTNESS 
+| CHANGE 
+| COLOR 
+| GREEN 
+| HEY 
+| HUE 
+| LAMP 
+| LAMPI 
+| OFF 
+| ON 
+| ONE 
+| ORANGE 
+| POINT 
+| POWER 
+| PURPLE 
+| RED 
+| SATURATION 
+| SET 
+| THE 
+| THE 
+| TO
+| TOGGLE 
+| TURN 
+| YELLOW 
+| ZERO 
+;

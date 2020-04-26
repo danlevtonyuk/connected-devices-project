@@ -1,0 +1,8 @@
+#JSGF V1.0;
+/******************************
+Grammar generated automatically
+******************************/
+
+grammar hello;
+
+public <lampi> = ( Lampi | Hey Lampi );
