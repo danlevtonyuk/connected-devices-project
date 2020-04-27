@@ -2,24 +2,23 @@
 import speech_recognition as sr
 import colorsys
 import pygame, time
-from gtts import gTTS 
-import os 
+from gtts import gTTS
+import os
 import pyaudio
 from datetime import datetime
 from pocketsphinx import AudioFile, get_model_path, get_data_path
 import sys
-from IPython import embed
-import lamp_service
+from lampi_sphinx_app import SphinxApp
 
 files = os.listdir(os.path.join(os.getcwd(), "SplitUp"))
 
 def getaudiodevices():
     p = pyaudio.PyAudio()
-    print("audio devices", p.get_device_count())
+    print("audio devices", p.get_device_count(), flush=True)
     for i in range(p.get_device_count()):
         name_i = p.get_device_info_by_index(i).get('name')
-        print("name_i:", name_i, name_i.find("PnP"))
-        print(p.get_device_info_by_index(i).get('name'))
+        print("name_i:", name_i, name_i.find("PnP"), flush=True)
+        print(p.get_device_info_by_index(i).get('name'), flush=True)
         if name_i.find("PnP") != -1:
           return i
     return None
@@ -31,34 +30,35 @@ class LampiSpeech(object):
         self.saturation = 1.0
         self.on_off = True
         pyaudio.PyAudio()
-        self.LampService = lamp_service.LampService()
-        
-        self.LampService.serve()
+        self.LampSphinxService = SphinxApp()
+        self.LampSphinxService.on_start()
 
     def listenRoutine(self):
         r = sr.Recognizer()
+        duration = 5
 
+        our_device = getaudiodevices()
+        print("Detected our mic:", our_device, flush=True)
+        with sr.Microphone(device_index=our_device, sample_rate=48000) as source:
+            r.adjust_for_ambient_noise(source)
+            while (1):
+                print("Pi is listening! Speak...", flush=True)
+                audio_data = r.record(source, duration=duration)
+                print("Pi captured! Processing...", flush=True)
+                try:
+                    # text = r.recognize_google(audio_data, language="en-EN")
+                    sphinx_dec = r.recognize_sphinx(audio_data, language="en-us", grammar="lampi_text_for_detection_complex2.jsgf") # , show_all=True)
+                    print("\n\n\nSphinx:" + sphinx_dec, flush=True)
+
+                    commands = detect_language(sphinx_dec)
+                    self.LampSphinxService.update_new_config(commands)
+                except Exception as exc:
+                  print(exc, flush=True)
+
+
+        exit()
         for each_file in files:
             print(each_file)
-            """model_path = get_model_path()
-            data_path = get_data_path()
-
-            config = {
-                'verbose': False,
-                'audio_file': os.path.join(os.getcwd(), each_file),
-                'buffer_size': 2048,
-                'no_search': False,
-                'full_utt': False,
-                'hmm': os.path.join(model_path, 'en-us'),
-                'lm': os.path.join(os.getcwd(), "TAR1172/TAR1172.lm"),
-                'dict': os.path.join(os.getcwd(), "TAR1172/TAR1172.dic")
-            }
-            #print (config)
-
-            audio = AudioFile(**config)
-            for phrase in audio:
-                print(phrase)
-            """
             with sr.AudioFile(os.path.join(os.getcwd(), "SplitUp", each_file)) as source2:
               recording = r.record(source2)
               #print("Google:", r.recognize_google(recording, language="en-US", show_all=True))
@@ -67,22 +67,14 @@ class LampiSpeech(object):
               #print("Google cloud:", r.recognize_google_cloud(recording, credentials_json=open("My First Project-fbdc14cb6af3.json", "r").read(), language="en-US", show_all=True))
 
               #sphinx_dec = r.recognize_sphinx(recording, language="en-US", keyword_entries=words_to_detect, grammar="lampi_text_for_detection.jsgf")#, show_all=True)
-              sphinx_dec = r.recognize_sphinx(recording, language="en-US", grammar="lampi_text_for_detection_complex2.jsgf")#, show_all=True)
+              sphinx_dec = r.recognize_sphinx(recording, language="en-us", grammar="lampi_text_for_detection_complex2.jsgf") # , show_all=True)
               print("\n\n\nSphinx:" + sphinx_dec)
 
-              detect_language(sphinx_dec)
-              
+              commands = detect_language(sphinx_dec)
+              self.LampService.update_new_config(commands)
+
         exit()
-        if 0:
-          eFile = sr.AudioFile(each_file)
-          with eFile as source:
-            audio = r.record(source)
-            print(each_file, type(audio))
-            print(r.recognize_google(audio, language="en-EN", show_all=True))
-            
-            #print(r.recognize_sphinx(audio, grammar="TAR9991/TAR9991/"))
-        exit()
-        
+
         print("\r\n\r\n*****\r\nr", r)
         list_text = ['a lumpy','hey Lumpy', 'lamp', 'Halen', 'Hayden', 'listen', 'Listen', 'Lampe', 'lampe']
         stop_flag = True
@@ -375,18 +367,18 @@ class LampiSpeech(object):
 
 class LanguageProcessor:
     def __init__(self):
-        self.ColorMap = {"RED":        {"hue":0.00, "saturation":1.0},
-                         "ORANGE":     {"hue":0.08, "saturation":1.0},  #  30*, 100%
-                         "YELLOW":     {"hue":0.16, "saturation":1.0},  #  60*, 100%
-                         "GREEN":      {"hue":0.33, "saturation":1.0},  # 120*, 100%
-                         "BLUE":       {"hue":0.66, "saturation":1.0},  # 240*, 100%
-                         "PURPLE":     {"hue":0.83, "saturation":1.0},  # 300*, 100%
-                         "MAGENTA":    {"hue":0.83, "saturation":1.0},  # 300*, 100%
-                         "TAN":        {"hue":0.09, "saturation":0.34}, #  34*,  34%
-                         "CYAN":       {"hue":0.50, "saturation":1.0},  # 180*, 100%
-                         "AQUAMARINE": {"hue":0.44, "saturation":0.50}, # 160*,  50%
-                         "PINK":       {"hue":0.97, "saturation":0.25}, # 350*,  25%
-                         "WHITE":      {"hue":0.00, "saturation":0.00}, #   0*,   0%
+        self.ColorMap = {"RED":        {"h":0.00, "s":1.0},
+                         "ORANGE":     {"h":0.08, "s":1.0},  #  30*, 100%
+                         "YELLOW":     {"h":0.16, "s":1.0},  #  60*, 100%
+                         "GREEN":      {"h":0.33, "s":1.0},  # 120*, 100%
+                         "BLUE":       {"h":0.66, "s":1.0},  # 240*, 100%
+                         "PURPLE":     {"h":0.83, "s":1.0},  # 300*, 100%
+                         "MAGENTA":    {"h":0.83, "s":1.0},  # 300*, 100%
+                         "TAN":        {"h":0.09, "s":0.34}, #  34*,  34%
+                         "CYAN":       {"h":0.50, "s":1.0},  # 180*, 100%
+                         "AQUAMARINE": {"h":0.44, "s":0.50}, # 160*,  50%
+                         "PINK":       {"h":0.97, "s":0.25}, # 350*,  25%
+                         "WHITE":      {"h":0.00, "s":0.00}, #   0*,   0%
                         }
         self.NumberMap = {"ZERO":'0', "ONE":'1', "TWO":'2', "THREE":'3', "FOUR":'4', "FIVE":'5', "SIX":'6', "SEVEN":'7', "EIGHT":'8', "NINE":'9', "POINT":'.'}
         self.nested = 0
@@ -467,14 +459,26 @@ class LanguageProcessor:
                 return self.start(word + " " + parsed_number + " / ", words[index:])
         return self.start(word + " " + parsed_number + " } ] / ", words[index:])
 
+def eval_command(command):
+    try:
+        print("Trying to eval command", command, flush=True)
+        interpreted = eval(command)
+        print("interpreted:", interpreted, flush=True)
+        return interpreted
+    except Exception as exc:
+        print("got exc from eval:", exc, flush=True)
+        return command
+
+
+global_times = []
 def detect_language(input_words):
+    global global_times
     #print("DETECT LANGUAGE!", input_words)
     words = input_words.split(" ")
     p = LanguageProcessor()
     time_start = time.clock()
     processed = p.start('', words)
-    time_end = time.clock()
-    print(processed, time_end-time_start)
+    print(processed, flush=True)
     commands = processed.split("/")
     final = []
     for command in commands:
@@ -495,12 +499,15 @@ def detect_language(input_words):
                             if command.find("{") != -1:
                                 temp = "{" + command.split("{")[1]
                                 temp = temp.split("}")[0] + "}"
-                                final += [temp]
+                                final += [eval_command(temp)]
                             else:
-                                final += [command]
-            
-    print("final", final)
-    
+                                final += [eval_command(command)]
+
+    print("final", final, flush=True)
+    time_end = time.clock()
+    global_times += [time_end-time_start]
+    print(global_times, sum(global_times), len(global_times), flush=True)
+    return final
 
 def main():
     lampi_speech = LampiSpeech()

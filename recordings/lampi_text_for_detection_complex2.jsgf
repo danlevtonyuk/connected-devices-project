@@ -5,7 +5,7 @@ Grammar generated automatically
 
 grammar my_lampi;
 
-public <action> = <register> <verb> <dest> <colors>;
+public <action> = <register> <verb> <dest> ( <colors> | numbers> );
 
 <register> = ( HEY LAMPI | HEY LAMP | LAMP );
 
@@ -14,3 +14,5 @@ public <action> = <register> <verb> <dest> <colors>;
 <dest> = ( HUE | SATURATION | BRIGHTNESS | POWER | LAMP | COLOR );
 
 <colors> = ( BLUE | GREEN | YELLOW | ON | OFF | RED | ORANGE | PURPLE );
+
+<numbers> = ( ONE | ZERO ) ( POINT ) (ONE | TWO | THREE | FOUR | FIVE | SIX | SEVEN | EIGHT | NINE );
