@@ -5,7 +5,6 @@ import json
 from paho.mqtt.client import Client
 from lamp_common import *
 import lampi_util
-from IPython import embed
 
 MQTT_CLIENT_ID = "sphinx_daemon"
 
@@ -178,7 +177,6 @@ class SphinxApp:
 
         self._update_leds()
         print("config now:", msg)
-        #embed()
         #    if 'color' in new_state:
         #        self.hue = new_state['color']['h']
         #        self.saturation = new_state['color']['s']
@@ -190,7 +188,6 @@ class SphinxApp:
 
     def receive_new_lamp_state(self, client, userdata, message):
         print("lampi_sphinx_app receive_new_lamp_state", userdata, message)
-        #embed()
         new_state = json.loads(message.payload.decode('utf-8'))
         self._update_ui(new_state)
         #Clock.schedule_once(lambda dt: self._update_ui(new_state), 0.01)

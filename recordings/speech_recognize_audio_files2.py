@@ -9,6 +9,7 @@ from datetime import datetime
 from pocketsphinx import AudioFile, get_model_path, get_data_path
 import sys
 from lampi_sphinx_app import SphinxApp
+import pipreqs
 
 files = os.listdir(os.path.join(os.getcwd(), "SplitUp"))
 
