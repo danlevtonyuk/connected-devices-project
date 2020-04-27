@@ -37,15 +37,17 @@ class LampiSpeech(object):
     def listenRoutine(self):
         r = sr.Recognizer()
         duration = 5
+        listen_timestamp = 0
 
         our_device = getaudiodevices()
         print("Detected our mic:", our_device, flush=True)
         with sr.Microphone(device_index=our_device, sample_rate=48000) as source:
             r.adjust_for_ambient_noise(source)
             while (1):
-                print("Pi is listening! Speak...", flush=True)
+                print("Pi is listening! Speak... [Last loop took:%s]" % (time.clock() - listen_timestamp), flush=True)
                 audio_data = r.listen(source, timeout=None)
                 #audio_data = r.record(source, duration=duration)
+                listen_timestamp = time.clock()
                 print("Pi captured! Processing...", flush=True)
                 try:
                     # text = r.recognize_google(audio_data, language="en-EN")
