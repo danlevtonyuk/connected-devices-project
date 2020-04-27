@@ -8,3 +8,4 @@
 **/*pocketsphinx_log.txt
 **/*speech_recognize_stderr.log
 **/*speech_recognize_stdout.log
+*/DELETEME/*

@@ -5,7 +5,7 @@ Grammar generated automatically
 
 grammar my_lampi;
 
-public <action> = <register> <verb> <dest> ( <colors> | numbers> );
+public <action> = <register> <verb> <dest> ( <colors> | <numbers> );
 
 <register> = ( HEY LAMPI | HEY LAMP | LAMP );
 
