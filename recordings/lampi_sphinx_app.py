@@ -16,14 +16,14 @@ class SphinxApp:
     _brightness = 0.0
     lamp_is_on = 0
 
-    def _get_hue(self):        return self._hue
-    def _set_hue(self, value): self._hue = value
+    #def _get_hue(self):        return self._hue
+    #def _set_hue(self, value): self._hue = value
 
-    def _get_saturation(self):        return self._saturation
-    def _set_saturation(self, value): self._saturation = value
+    #def _get_saturation(self):        return self._saturation
+    #def _set_saturation(self, value): self._saturation = value
 
-    def _get_brightness(self):        return self._brightness
-    def _set_brightness(self, value): self._brightness = value
+    #def _get_brightness(self):        return self._brightness
+    #def _set_brightness(self, value): self._brightness = value
 
     hue = 0 # AliasProperty(_get_hue, _set_hue, bind=['_hue'])
     saturation = 0 # AliasProperty(_get_saturation, _set_saturation, bind=['_saturation'])

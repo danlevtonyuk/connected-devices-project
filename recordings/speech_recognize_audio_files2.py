@@ -43,12 +43,13 @@ class LampiSpeech(object):
             r.adjust_for_ambient_noise(source)
             while (1):
                 print("Pi is listening! Speak...", flush=True)
-                audio_data = r.record(source, duration=duration)
+                audio_data = r.listen(source, timeout=None)
+                #audio_data = r.record(source, duration=duration)
                 print("Pi captured! Processing...", flush=True)
                 try:
                     # text = r.recognize_google(audio_data, language="en-EN")
                     sphinx_dec = r.recognize_sphinx(audio_data, language="en-us", grammar="lampi_text_for_detection_complex2.jsgf") # , show_all=True)
-                    print("\n\n\nSphinx:" + sphinx_dec, flush=True)
+                    # print("\n\n\nSphinx:" + sphinx_dec, flush=True)
 
                     commands = detect_language(sphinx_dec)
                     self.LampSphinxService.update_new_config(commands)
@@ -68,7 +69,7 @@ class LampiSpeech(object):
 
               #sphinx_dec = r.recognize_sphinx(recording, language="en-US", keyword_entries=words_to_detect, grammar="lampi_text_for_detection.jsgf")#, show_all=True)
               sphinx_dec = r.recognize_sphinx(recording, language="en-us", grammar="lampi_text_for_detection_complex2.jsgf") # , show_all=True)
-              print("\n\n\nSphinx:" + sphinx_dec)
+              # print("\n\n\nSphinx:" + sphinx_dec)
 
               commands = detect_language(sphinx_dec)
               self.LampService.update_new_config(commands)
@@ -380,7 +381,7 @@ class LanguageProcessor:
                          "PINK":       {"h":0.97, "s":0.25}, # 350*,  25%
                          "WHITE":      {"h":0.00, "s":0.00}, #   0*,   0%
                         }
-        self.NumberMap = {"ZERO":'0', "ONE":'1', "TWO":'2', "THREE":'3', "FOUR":'4', "FIVE":'5', "SIX":'6', "SEVEN":'7', "EIGHT":'8', "NINE":'9', "POINT":'.'}
+        self.NumberMap = {"ZERO":'0', "ONE":'1', "TO": '2',  "TWO":'2', "THREE":'3', "FOUR":'4', "FIVE":'5', "SIX":'6', "SEVEN":'7', "EIGHT":'8', "NINE":'9', "POINT":'.'}
         self.nested = 0
     def start(self, word, words):
         if not len(words): return word
@@ -461,12 +462,12 @@ class LanguageProcessor:
 
 def eval_command(command):
     try:
-        print("Trying to eval command", command, flush=True)
+        #print("Trying to eval command", command, flush=True)
         interpreted = eval(command)
-        print("interpreted:", interpreted, flush=True)
+        #print("interpreted:", interpreted, flush=True)
         return interpreted
     except Exception as exc:
-        print("got exc from eval:", exc, flush=True)
+        #print("got exc from eval:", exc, flush=True)
         return command
 
 
@@ -478,7 +479,7 @@ def detect_language(input_words):
     p = LanguageProcessor()
     time_start = time.clock()
     processed = p.start('', words)
-    print(processed, flush=True)
+    # print(processed, flush=True)
     commands = processed.split("/")
     final = []
     for command in commands:
@@ -503,10 +504,10 @@ def detect_language(input_words):
                             else:
                                 final += [eval_command(command)]
 
-    print("final", final, flush=True)
+    # print("final", final, flush=True)
     time_end = time.clock()
     global_times += [time_end-time_start]
-    print(global_times, sum(global_times), len(global_times), flush=True)
+    # print(global_times, sum(global_times), len(global_times), flush=True)
     return final
 
 def main():
