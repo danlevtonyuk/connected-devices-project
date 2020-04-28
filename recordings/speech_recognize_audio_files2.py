@@ -51,10 +51,14 @@ class LampiSpeech(object):
                 print("Pi captured! Processing...", flush=True)
                 try:
                     # text = r.recognize_google(audio_data, language="en-EN")
-                    sphinx_dec = r.recognize_sphinx(audio_data, language="en-us", grammar="lampi_text_for_detection_complex2.jsgf") # , show_all=True)
+                    #sphinx_dec = r.recognize_sphinx(audio_data, language="en-US", grammar="my_lampi.jsgf") # , show_all=True)
+                    #sphinx_dec = r.recognize_sphinx(audio_data, language="en-US", grammar="OurDictionary.jsgf") # , show_all=True)
+                    sphinx_dec = r.recognize_sphinx(audio_data, language=("/home/pi/.local/lib/python3.5/site-packages/pocketsphinx/model/en-us", "/home/pi/final_project/connected-devices-project/recordings/OurDictionary/OurDictionary.lm", "/home/pi/final_project/connected-devices-project/recordings/OurDictionary/OurDictionary.dict"), grammar="OurDictionary.jsgf") # , show_all=True)
+                    #grammar = ("/home/pi/.local/lib/python3.5/site-packages/pocketsphinx/model/en-us", "/home/pi/final_project/connected-devices-project/recordings/OurDictionary/OurDictionary.lm", "/home/pi/final_project/connected-devices-project/recordings/OurDictionary/OurDictionary.dic")
                     # print("\n\n\nSphinx:" + sphinx_dec, flush=True)
 
                     commands = detect_language(sphinx_dec)
+                    print("commands:", commands)
                     self.LampSphinxService.update_new_config(commands)
                 except Exception as exc:
                   print(exc, flush=True)
@@ -477,7 +481,7 @@ def eval_command(command):
 global_times = []
 def detect_language(input_words):
     global global_times
-    #print("DETECT LANGUAGE!", input_words)
+    print("DETECT LANGUAGE!", input_words)
     words = input_words.split(" ")
     p = LanguageProcessor()
     time_start = time.clock()

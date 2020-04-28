@@ -1,0 +1,18 @@
+#JSGF V1.0;
+/******************************
+Grammar generated automatically
+******************************/
+
+grammar OurDictionary;
+
+public <OurDictionary> = <register> <verb> <dest> ( <colors> | <numbers> );
+
+<register> = ( HEY LAMPI | LAMPI | HEY LAMP | LAMP);
+
+<verb> = ( SET | TURN | CHANGE | TOGGLE );
+
+<dest> = ( HUE | SATURATION | BRIGHTNESS | POWER | LAMPI | COLOR );
+
+<colors> = ( BLUE | GREEN | YELLOW | ON | OFF | RED | ORANGE | PURPLE | CYAN | MAGENTA | TAN | AQUAMARINE | PINK | WHITE );
+
+<numbers> = ( ONE | ZERO ) ( POINT ) ( ONE | TWO | TO | THREE | FOUR | FIVE | SIX | SEVEN | EIGHT | NINE );
