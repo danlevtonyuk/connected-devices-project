@@ -1,0 +1,8 @@
+pocketsphinx==0.1.15
+pipreqs==0.4.10
+gTTS==2.1.1
+Kivy==1.10.1
+SpeechRecognition==3.8.1
+pygame==1.9.3
+paho_mqtt==1.5.0
+pyaudio==0.2.11

@@ -1,0 +1,33 @@
+Lamp
+Lampi
+Lampe
+Lampee
+
+Set Hue 
+Set Saturation
+Set Brightness
+set on
+set off
+set color
+
+Turn Hue
+Turn Saturation
+Turn Brightness
+Turn ON
+Turn OFF
+turn color
+
+Change hue
+change saturation
+change brightness
+change power setting
+change color
+
+toggle power setting
+
+on
+off
+hue
+saturation
+brightness
+color
