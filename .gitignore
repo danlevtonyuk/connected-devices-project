@@ -9,6 +9,4 @@
 **/*speech_recognize_stderr.log
 **/*speech_recognize_stdout.log
 */DELETEME/*
-**/pocketsphinx_log.txt
-*/pocketsphinx_log.txt
-pocketsphinx_log.txt
+/recordings/pocketsphinx_log.txt

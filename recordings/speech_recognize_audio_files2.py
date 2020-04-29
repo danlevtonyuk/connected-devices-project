@@ -10,6 +10,8 @@ from pocketsphinx import AudioFile, get_model_path, get_data_path
 import sys
 from lampi_sphinx_app import SphinxApp
 import pipreqs
+import pyttsx3
+from IPython import embed
 
 files = os.listdir(os.path.join(os.getcwd(), "SplitUp"))
 
@@ -33,6 +35,13 @@ class LampiSpeech(object):
         pyaudio.PyAudio()
         self.LampSphinxService = SphinxApp()
         self.LampSphinxService.on_start()
+        self.speech_engine = pyttsx3.init()
+        self.speech_engine.setProperty('voice', 'en-american')
+        self.speech_engine.setProperty('rate', '100')
+        self.speech_engine.say('Lampi is online')
+        self.speech_engine.runAndWait()
+        self.speech_engine.stop()
+        pygame.init()
 
     def listenRoutine(self):
         r = sr.Recognizer()
@@ -42,12 +51,20 @@ class LampiSpeech(object):
         our_device = getaudiodevices()
         print("Detected our mic:", our_device, flush=True)
         with sr.Microphone(device_index=our_device, sample_rate=48000) as source:
-            r.adjust_for_ambient_noise(source)
+            r.adjust_for_ambient_noise(source, duration=5)
+            temp = r.energy_threshold
+            r.dynamic_energy_threshold = False
+            r.energy_threshold = temp + 50
             while (1):
+                print("Energy threshold:", temp+50)
+                pygame.mixer.music.load("cartoon_wink.wav")
+                pygame.mixer.music.play()
                 print("Pi is listening! Speak... [Last loop took:%s]" % (time.clock() - listen_timestamp), flush=True)
                 audio_data = r.listen(source, timeout=None)
                 #audio_data = r.record(source, duration=duration)
                 listen_timestamp = time.clock()
+                pygame.mixer.music.load('ding_.wav')
+                pygame.mixer.music.play()
                 print("Pi captured! Processing...", flush=True)
                 try:
                     # text = r.recognize_google(audio_data, language="en-EN")
